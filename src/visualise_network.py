@@ -29,9 +29,8 @@ if __name__ == "__main__":
         str(DATA_OUTPUTS_PATH) + clustered_skills_graph_path)
 
     st.set_page_config(layout="centered")
-    st.title('Skills Taxonomy Network Tool')
-    st.markdown(
-        '## Investigate skills in different skill areas - Select area to explore:')
+    st.markdown('<p style="font-family:Courier New; color:Red; font-size: 40px;"><b>Skills Taxonomy Network Tool</b></p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-family:Courier New; color:Red; font-size: 30px;"><i>Investigate skills in different skill areas - Select area to explore:</i></p>', unsafe_allow_html=True)
 
     # select from the different skills clusters
     option = st.selectbox(label='', options=list(set([skill[1] for skill in list(
@@ -57,13 +56,15 @@ if __name__ == "__main__":
                     nodeHighlightBehavior=True, highlightColor="#F7A7A6", collapsible=True)
 
     length_of_nodes = len(list(set([node.to_dict()['id'] for node in nodes])))
-    st.markdown('**Number of Skills in Cluster: **' + str(length_of_nodes))
+    st.markdown('<p style="font-family:Courier New; color:Black; font-size: 20px;"><b>Number of Skills in Cluster:</b>' +
+                str(length_of_nodes), unsafe_allow_html=True)
 
     return_value = agraph(nodes=nodes,
                           edges=edges,
                           config=config)
 
-    st.markdown('**Cluster subgroups:**')
+    st.markdown('<p style="font-family:Courier New; color:Black; font-size: 20px;"><b><i>Cluster Subgroups:</i></b></p>',
+                unsafe_allow_html=True)
     subgroups1 = dict()
     for skill in G_clustered_skills_color.nodes(data=True):
         if skill[1]['cluster_subgroup0_name'] == option:
@@ -73,7 +74,7 @@ if __name__ == "__main__":
     if len(subgroups1) > 1:
         for subgroup1_name, subgroup1_color in subgroups1.items():
             st.markdown(
-                f'<p style="color:{subgroup1_color}";>{subgroup1_name}</p>', unsafe_allow_html=True)
+                f'<p style="font-family:Courier New;color:{subgroup1_color}";><b>{subgroup1_name}</b></p>', unsafe_allow_html=True)
     else:
         st.markdown(
-            f'<p style="color:{list(subgroups1.values())[0]}";>{list(subgroups1.keys())[0]}</p>', unsafe_allow_html=True)
+            f'<p style="font-family:Courier New;color:{list(subgroups1.values())[0]}";><b>{list(subgroups1.keys())[0]}</b></p>', unsafe_allow_html=True)
