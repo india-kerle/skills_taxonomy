@@ -1,7 +1,6 @@
 occupations_data_path: '/data/inputs/ESCO_occup_skills.json.zip'
 skills_graph_name: '/skills_graph.pickle'
 clustered_skills_graph_name: '/clustered_skills_graph.pickle'
-
 cluster_granularity: 'cluster_group'
 edgeweight_prunethreshold: 5
 bad_coefs: 0.1

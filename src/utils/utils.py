@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Optional
 import yaml
 from fnmatch import fnmatch
 import json
@@ -22,7 +21,7 @@ CONFIG_PATH = Path(__file__).resolve().parents[1] / "config/base.yaml"
 DATA_OUTPUTS_PATH = Path(__file__).resolve().parents[1] / "data/outputs/"
 
 
-def get_yaml_config(file_path: str) -> Optional[dict]:
+def get_yaml_config(file_path):
     """Fetches yaml config file.  
 
     Args:
@@ -39,7 +38,7 @@ def get_yaml_config(file_path: str) -> Optional[dict]:
             return yaml.load(f.read(), Loader=yaml.FullLoader)
 
 
-def load_data(file_path: str):
+def load_data(file_path):
     """Loads data in *.pickle or *.json.zip format.
 
     Args:
