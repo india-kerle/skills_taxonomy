@@ -6,9 +6,14 @@ This repo contains source code for generating a skills taxonomy, using data from
 
 An overview of the network analysis driven methodology, colored by three main steps, can be visualised below:
 
+There are **three ways** to get a sense of this project, to accomodate the varying degrees of technical knowledge. From most comfortable to least comfortable:
+1. ***Replicate the analysis.*** Follow the **Set Up** then **Pipeline Steps** section to replicate the analysis. Comb through the central ```.py``` files to follow along the pipeline.
+2. ***Read the technical report.*** If you're not keen to read code, read the ```technical_methodlogy.pdf``` to get a sense of how I went about building a skills taxonomy, including how I made sense of the problem; how I built an understanding of the data; the approach I landed on and how I assessed my solution.
+3. ***Explore the skill clusters*** If reading a technical report feels like a drag, [visit the deployed streamlit app](https://share.streamlit.io/india-kerle/skills_taxonomy/main/src/visualise_network.py) to visualise the network and to get a sense of what the clusters look like.            
+
 ## Pipeline steps
 
-The central steps taken are in three separate .py files in the ```src``` folder:
+The central steps taken are in three separate ```.py``` files in the ```src``` folder:
 
 1. ```build_network.py``` - Builds a weighted, undirected network of essential skill pairs from occupations data. Saves network locally as pickle file. To run the script in your activated conda environment, ```python run build_network.py```. 
 
