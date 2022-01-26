@@ -58,34 +58,34 @@ def build_skills_network(occupations_data, edgeweight_prune_threshold):
                    for record in all_pairs]
     skill_df = pd.DataFrame(skill_pairs, columns=['node1', 'node2', 'weight'])
 
-    # deal with directionality issues - add the weights together
-    df2 = skill_df.copy()
+    # hacky way to deal with directionality issues - add the weights together
+    skill_df_copy = skill_df.copy()
     node1list = skill_df['node1']
     node2list = skill_df['node2']
-    df2['node1'] = node2list
-    df2['node2'] = node1list
+    skill_df_copy['node1'] = node2list
+    skill_df_copy['node2'] = node1list
 
-    df3 = df2.append(skill_df)
-    df4 = df3.groupby(['node1', 'node2']).sum().reset_index()
+    skill_df_final = skill_df_copy.append(skill_df)
+    skill_df_final = skill_df_final.groupby(['node1', 'node2']).sum().reset_index()
 
     # skills that cooccur in at least n job titles
-    df5 = df4[df4['weight'] > edgeweight_prune_threshold]
+    skill_df_pruned = skill_df_final[skill_df_final['weight'] > edgeweight_prune_threshold]
 
     # create weighted network with data
-    G = nx.from_pandas_edgelist(df5, source='node1',
+    G = nx.from_pandas_edgelist(skill_df_pruned, source='node1',
                                 target='node2',
                                 edge_attr='weight')
 
     return G
 
 
-def prune_skills_network(skills_network, bad_coefs):
+def prune_skills_network(G, bad_coefs):
     """Prunes undirected, weighted network of essential skill pairs
     based on clustering coefficients. Removes nodes with low clustering
     coefficients i.e. highly transversal skills.  
 
     Args:
-        skills_network (graph): An undirected, weighted networkx graph.   
+        G (graph): An undirected, weighted networkx graph.   
         bad_coefs (int): a low clustering coefficient threshold, based
         on clustering coefficient histogram.  
 
@@ -93,7 +93,7 @@ def prune_skills_network(skills_network, bad_coefs):
         An undirected, weighted networkx graph. 
 
     """
-    clustering_coefs = nx.clustering(skills_network)
+    clustering_coefs = nx.clustering(G)
 
     # subset clusterng coefs based on being v low i.e. highly transversal skills
     nodes = list(clustering_coefs.keys())
@@ -108,15 +108,14 @@ def prune_skills_network(skills_network, bad_coefs):
 
     clustering_coefs_to_get_rid_of = {
         k: v for el in clustering_coefs_to_get_rid_of for k, v in el.items()}
-    print(
-        f'removing {len(clustering_coefs_to_get_rid_of)} nodes based on clustering coef')
+    
+    print(f'removing {len(clustering_coefs_to_get_rid_of)} nodes based on clustering coef')
 
     # remove skill nodes based on clustering coef
     bad_skills = list(clustering_coefs_to_get_rid_of.keys())
-    skills_network.remove_nodes_from(bad_skills)
+    G.remove_nodes_from(bad_skills)
 
-    return skills_network
-
+    return G
 
 if __name__ == "__main__":
 

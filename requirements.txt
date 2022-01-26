@@ -8,4 +8,4 @@ python-louvain==0.15
 nltk==3.5
 streamlit==0.78.0
 streamlit-agraph==0.0.35
-pyyaml
+PyYAML==5.4
