@@ -14,7 +14,7 @@ There are **three ways** to get a sense of this project, to accomodate the varyi
 3. ***Explore the skill clusters*** If reading a technical report feels like a drag, [visit the deployed streamlit app](https://share.streamlit.io/india-kerle/skills_taxonomy/main/src/visualise_network.py) to visualise the network and to get a sense of what the clusters look like.
 
  ![streamlitskills](https://user-images.githubusercontent.com/46863334/151831044-86c22636-7543-49e0-b6ad-1d4aeaf64645.gif)
-<center>*example of how to use the streamlit app.*</center>          
+*example of how to use the streamlit app.*       
 
 ## Set up 
 
