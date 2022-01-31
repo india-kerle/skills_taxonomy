@@ -97,12 +97,10 @@ def prune_skills_network(G, bad_coefs):
 
     # subset clusterng coefs based on being v low i.e. highly transversal skills
     nodes = list(clustering_coefs.keys())
-    # graph clustering coef values to choose bad_coef
-    pd.DataFrame(list(clustering_coefs.values())).plot.hist()
-
+    
     clustering_coefs_to_get_rid_of = []
     for node in nodes:
-        if clustering_coefs[node] < bad_coefs:  # based on plot
+        if clustering_coefs[node] < bad_coefs: 
             clustering_coefs_to_get_rid_of.append(
                 {node: clustering_coefs[node]})
 
