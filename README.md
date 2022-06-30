@@ -1,4 +1,4 @@
-# Recurse Application: Building a Skills Taxonomy
+#Building a Skills Taxonomy
 
 ## Introduction
 
